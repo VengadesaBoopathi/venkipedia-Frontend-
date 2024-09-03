@@ -1,0 +1,103 @@
+/* General Container Styles */
+.welcome-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button-container button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Blog Container Styles */
+.blog-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.blog-list {
+    width: 60%;
+}
+
+.blog-details {
+    width: 40%;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+}
+
+.blog-item {
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+}
+
+.authordetails {
+    display: flex;
+    justify-content: space-between;
+    height: 20%;
+}
+
+.blogdetails {
+    text-transform: capitalize;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.blogdetails .topic {
+    height: 20%;
+}
+
+.blogdetails .desc,
+.blogdetails .what {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+
+.blogdetails .what {
+    height: 50%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.blogdetails .desc {
+    height: 30%;
+}
+.date {
+    margin-left: auto;
+    text-align: right;
+}
+
+.blog-item h3 {
+    margin-top: 0;
+}
+
+.blog-item p {
+    margin: 5px 0;
+}
+
+.blog-details button {
+    display: block;
+    margin-top: 5px;
+    padding: 5px 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.blog-details p {
+    margin: 10px 0;
+}

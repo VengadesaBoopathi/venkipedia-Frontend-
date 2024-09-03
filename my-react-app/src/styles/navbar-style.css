@@ -1,0 +1,53 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #aa3304;
+}
+.nav{
+    display: flex;
+    background-color: #111;
+    flex-direction: row;
+}
+.signup{
+    float:right;
+    background-color: #111;
+    margin-left: auto;
+}
+.nav button{
+    background-color: #111;
+    color: aliceblue;
+    height: auto;
+    margin-bottom: 0%;
+}
+.nav button:hover{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    height: auto;
+    margin-bottom: 0%;
+}
