@@ -2,16 +2,23 @@
   height: 100%;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  background-color: aquamarine;
+  flex-direction: column;              
+  font-size: large;
 }
-
-body {
-  background-color: aquamarine;
-  height: 100%;
+body ,html{
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin: 0;
+    padding: 0;
+     min-height: 100vh;
+    box-sizing: border-box;
+    background-image: url('./gify.gif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: repeat;
+      height: 100%;
+      overflow-x: hidden;
 }
 
 .navbar {
@@ -19,29 +26,6 @@ body {
   height: 5%;
   display: flex;
   flex-direction: row;
-}
-
-.btn {
-  height: 100%;
-
-  color: #000;
-  background-color: aquamarine;
-}
-
-.btn button {
-  padding: 20px;
-  background-color: aquamarine;
-}
-
-.shipment-management {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-
-.form-group {
-  margin-bottom: 15px;
 }
 
 label {
@@ -52,90 +36,23 @@ label {
 input {
   width: 100%;
   padding: 8px;
-  border: 1px solid #44b185;
+  border: 1px solid #ff7b46;
   border-radius: 4px;
 }
 
 button {
-  background-color: #7ba4cf;
-  color: rgb(0, 0, 0);
+  background-color: #ff4800;
+  margin: 0 auto;
+  color: rgb(255, 255, 255);
   border: none;
   padding: 10px 15px;
-  border-radius: 4px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #eefdb9;
+  background-color: #aa3304;
+  color: white;
 }
-
-.shipment-details {
-  background-color: #b6ffc8;
-  border: 1px solid #a9f2f6;
-  border-radius: 4px;
-  padding: 15px;
-  margin-top: 15px;
-}
-
-/* ShipmentManagement.css */
-
-.shipment-operation {
-  max-width: 1200px;
-  /* Adjusted for more horizontal space */
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-.shipment-operation h2 {
-  font-size: 24px;
-  color: #333;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-.shipment-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  /* Space between items */
-}
-
-.shipment-item {
-  /* flex: 1 1 calc(33% - 20px); */
-  /* Adjust to control item width */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  box-sizing: border-box;
-  /* Ensure padding and border are included in width */
-}
-
-.shipment-item h3 {
-  font-size: 20px;
-  color: #007bff;
-  margin-bottom: 10px;
-}
-
-.shipment-detail {
-  font-size: 16px;
-  color: #555;
-  margin: 5px 0;
-}
-
-.shipment-detail strong {
-  color: #333;
-}
-
-.shipment-operation p {
-  font-size: 16px;
-  color: #666;
-}
-
-
 
 .login-container {
   width: 600px;
@@ -144,7 +61,7 @@ button:hover {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #ffd698;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -167,51 +84,32 @@ button:hover {
   border-radius: 4px;
 }
 
-.login-container button {
-  padding: 10px;
-  width: 100%;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-}
-
-.login-container button:hover {
-  background-color: #555;
-}
-
-
 .blog-form-container {
   width: 1000px;
   height: auto;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #ffd698;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
 
-/* General label styles */
 .blog-form-container label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.blog-form-container div{
+.blog-form-container div {
   align-items: center;
   margin: 0 auto;
   justify-content: center;
-  /* background-color: #007bff; */
   width: 80%;
   margin-bottom: 10px;
 }
-/* General input styles */
+
 .blog-form-container input[type="text"],
 .blog-form-container textarea {
   width: 99%;
@@ -221,16 +119,71 @@ button:hover {
   font-size: 16px;
   text-align: center;
 }
+
 .blog-form-container textarea {
   height: 100px;
   resize: vertical;
 }
 
+.blogbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-
-/* Message styling */
 .blog-form-container p.message {
   color: #005003;
   font-weight: bold;
   margin-top: 10px;
+}
+
+.blog-details-container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.blogdetails button {
+  width: 100%;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+/* Media Query for Tablets and Below (Max-width 768px) */
+@media (max-width: 768px) {
+  .blog-details-container {
+      width: 90%;
+      margin: 0 auto;
+    }
+  .blog-form-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .login-container {
+    width: 80%;
+  }
+
+  .navbar {
+    width: 90%;
+  }
+}
+
+/* Media Query for Mobile Phones (Max-width 480px) */
+@media (max-width: 480px) {
+  .blog-form-container {
+    width: 100%;
+    padding: 10px;
+  }
+    .blog-details-container {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+  .login-container {
+    width: 90%;
+  }
+
+  .navbar {
+    width: 100%;
+  }
 }

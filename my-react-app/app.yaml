@@ -1,0 +1,16 @@
+runtime: nodejs20
+env: standard
+instance_class: F1
+
+handlers:
+  - url: /static/(.*)
+    static_files: build/static/\1
+    upload: build/static/(.*)
+
+  - url: /(.*\.(json|ico|js|html|png|txt|css))$
+    static_files: build/\1
+    upload: build/.*\.(json|ico|js|html|png|txt|css)$
+
+  - url: /.*
+    static_files: build/index.html
+    upload: build/index.html

@@ -17,7 +17,7 @@ function Intro() {
         <button onClick={() => navigate("/ViewYourWritings")}>
           View your Writings
         </button>
-      </div>
+      </div> 
     </div>
   );
 }

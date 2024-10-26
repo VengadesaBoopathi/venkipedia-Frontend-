@@ -8,12 +8,20 @@ function CreateBlog() {
   const [what, setWhat] = useState("");
   const [why, setWhy] = useState("");
   const [how, setHow] = useState("");
-  const [whatIf, setWhatIf] = useState("");
+  const [whatif, setWhatIf] = useState("");
   const [additionalDetails, setAdditionalDetails] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const blog = location.state?.blog; // Get blog data from location state
+
+  useEffect(() => {
+    const userId = localStorage.getItem("username");
+    if (!userId) {
+      // Redirect to login if not authenticated
+      navigate("/login");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (blog) {
@@ -23,7 +31,7 @@ function CreateBlog() {
       setWhat(blog.what || "");
       setWhy(blog.why || "");
       setHow(blog.how || "");
-      setWhatIf(blog.whatIf || "");
+      setWhatIf(blog.whatif || "");
       setAdditionalDetails(blog.additionalDetails || "");
     }
   }, [blog]);
@@ -38,7 +46,7 @@ function CreateBlog() {
       what,
       why,
       how,
-      whatIf,
+      whatif,
       additionalDetails,
       createdAt: new Date(),
     };
@@ -46,12 +54,15 @@ function CreateBlog() {
     try {
       if (blog && blog.id) {
         // Update existing blog
-        await axios.put(`http://localhost:8084/update/${blog.id}`, blogData);
+        await axios.put(
+          `${process.env.REACT_APP_API_URL}/update/${blog.id}`,
+          blogData
+        );
         console.log("Blog updated successfully");
         setMessage("Blog updated successfully");
       } else {
         // Create new blog
-        await axios.post("http://localhost:8084/create", blogData);
+        await axios.post(`${process.env.REACT_APP_API_URL}/create`, blogData);
         console.log("Blog created successfully");
         setMessage("Blog created successfully");
       }
@@ -107,9 +118,9 @@ function CreateBlog() {
           />
         </div>
         <div>
-          <label>What If:</label>
+          <label>whatif:</label>
           <textarea
-            value={whatIf}
+            value={whatif}
             onChange={(e) => setWhatIf(e.target.value)}
             // required
           />

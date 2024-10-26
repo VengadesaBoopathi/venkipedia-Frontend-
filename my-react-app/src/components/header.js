@@ -1,84 +1,89 @@
-import "../styles/navbar-style.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/navbar-style.css";
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem("username")
+  );
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the user is logged in
-    const username = localStorage.getItem("username");
-    setIsLoggedIn(!!username); // Set true if username exists
+    const checkLoginStatus = () => {
+      const username = localStorage.getItem("username");
+      setIsLoggedIn(!!username);
+    };
+
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 768);
+    };
+
+    checkLoginStatus();
+    handleResize();
+
+    window.addEventListener("authChange", checkLoginStatus);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("authChange", checkLoginStatus);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const handleLogout = () => {
-    // Remove user-related data from localStorage
     localStorage.removeItem("username");
-    localStorage.removeItem("token"); // Optional: Remove token as well
-
-    // Update login state
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
-
-    // Redirect to login page
+    window.dispatchEvent(new Event("authChange"));
+    setMenuOpen(false); // Close the menu after logout
     navigate("/login");
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    setMenuOpen(false); // Close the menu after navigation
   };
 
   return (
     <div className="nav">
-      <div>
-        <ul className="sidenav">
-          <li>
-            <a className="active" href="#home">
-              <button onClick={() => navigate("/welcome")}>Home</button>
-            </a>
-          </li>
-          <li>
-            <a>
-              <button onClick={() => navigate("/ViewAllBlogs")}>Read</button>
-            </a>
-          </li>
-          <li>
-            <a>
-              <button onClick={() => navigate("/CreateBlog")}>Write</button>
-            </a>
-          </li>
-          <li>
-            <a>
-              <button onClick={() => navigate("/ViewYourWritings")}>
-                Your Writings
-              </button>
-            </a>
-          </li>
-        </ul>
-      </div>
+      <button className="menu-toggle" onClick={toggleMenu}>
+        ☰
+      </button>
+      <ul className={menuOpen ? "show" : ""}>
+        <li>
+          <a onClick={() => handleNavigation("/welcome")}>Home</a>
+        </li>
+        <li>
+          <a onClick={() => handleNavigation("/ViewAllBlogs")}>Read</a>
+        </li>
+        <li>
+          <a onClick={() => handleNavigation("/CreateBlog")}>Write</a>
+        </li>
+        <li>
+          <a onClick={() => handleNavigation("/ViewYourWritings")}>
+            Your Writings
+          </a>
+        </li>
+      </ul>
       <div className="signup">
-        <div>
-          <ul>
-            {!isLoggedIn ? (
-              <>
-                <li>
-                  <a>
-                    <button onClick={() => navigate("/login")}>Login</button>
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <button onClick={() => navigate("/Signin")}>
-                      Register
-                    </button>
-                  </a>
-                </li>
-              </>
-            ) : (
-              <li>
-                <a>
-                  <button onClick={handleLogout}>Log out</button>
-                </a>
-              </li>
-            )}
-          </ul>
-        </div>
+        {!isLoggedIn ? (
+          <>
+            <button onClick={() => handleNavigation("/login")}>Login</button>
+            <button onClick={() => handleNavigation("/Signin")}>
+              Register
+            </button>
+          </>
+        ) : (
+          (!isSmallScreen || menuOpen) && (
+            <button onClick={handleLogout}>Log out</button>
+          )
+        )}
       </div>
     </div>
   );

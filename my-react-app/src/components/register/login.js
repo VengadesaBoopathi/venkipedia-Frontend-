@@ -11,15 +11,22 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8084/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/login`,
+        {
+          username,
+          password,
+        }
+      );
 
       if (response.data.success) {
         localStorage.setItem("username", username);
         localStorage.setItem("token", response.data.token);
         setMessage("Login successful! Redirecting to Home Page");
+
+        // Dispatch a custom event to notify other components
+        window.dispatchEvent(new Event("authChange"));
+
         setTimeout(() => navigate("/welcome"), 2000);
       } else {
         setMessage("Incorrect credentials, redirecting to register");
@@ -53,9 +60,11 @@ function Login() {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <div className="blogbutton">
+          <button type="submit">Login</button>
+        </div>
       </form>
-      {message && <p>{message}</p>} {/* Conditionally render the message */}
+      {message && <p>{message}</p>}
     </div>
   );
 }

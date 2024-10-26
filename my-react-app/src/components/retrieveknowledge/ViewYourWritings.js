@@ -10,10 +10,16 @@ function ViewYourWritings() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Redirect to login if not authenticated
+    if (!userId) {
+      navigate("/login");
+      return; // Ensure no further code runs
+    }
+
     const fetchBlogs = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8084/user/${userId}`
+          `${process.env.REACT_APP_API_URL}/user/${userId}`
         );
         setBlogs(response.data);
       } catch (error) {
@@ -22,7 +28,7 @@ function ViewYourWritings() {
       }
     };
     fetchBlogs();
-  }, [userId]);
+  }, [userId, navigate]);
 
   const handleBlogClick = (blog) => {
     setSelectedBlog(blog); // Set the selected blog
@@ -41,7 +47,7 @@ function ViewYourWritings() {
 
   const handleRemoveClick = async (blogId) => {
     try {
-      await axios.delete(`http://localhost:8084/delete/${blogId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/delete/${blogId}`);
       console.log("Blog removed successfully");
       setBlogs(blogs.filter((blog) => blog.id !== blogId));
       setSelectedBlog(null); // Clear the selected blog after removal
@@ -54,7 +60,9 @@ function ViewYourWritings() {
   return (
     <div className="blog-container">
       <div className="blog-list">
-        <h2>All Blogs</h2>
+        <h1> Hi! {userId} </h1>
+        <h2>Check Your Blogs</h2>
+
         {blogs.length > 0 ? (
           blogs.map((blog) => (
             <div
@@ -86,6 +94,15 @@ function ViewYourWritings() {
                 <div className="what">
                   <p>{blog.what}</p>
                 </div>
+              </div>
+              <div className="blogbutton">
+                <button
+                  onClick={() =>
+                    navigate("/BloginDetail2", { state: { blog } })
+                  }
+                >
+                  Open in New Page
+                </button>
               </div>
             </div>
           ))
@@ -145,7 +162,7 @@ function ViewYourWritings() {
             </button>
             {expandedSections[`whatif-${selectedBlog.id}`] && (
               <p>
-                <strong>What If:</strong> {selectedBlog.whatif}
+                <strong>What If:</strong> {selectedBlog.whatIf}
               </p>
             )}
             <button
@@ -162,13 +179,25 @@ function ViewYourWritings() {
               </p>
             )}
             {/* Edit and Remove buttons */}
-            <button onClick={() => handleEditClick(selectedBlog)}>Edit</button>
-            <button onClick={() => handleRemoveClick(selectedBlog.id)}>
+            <button
+              style={{
+                backgroundColor: "blue",
+                color: "white",
+                marginRight: "10px",
+              }}
+              onClick={() => handleEditClick(selectedBlog)}
+            >
+              Edit
+            </button>
+            <button
+              style={{ backgroundColor: "red", color: "white" }}
+              onClick={() => handleRemoveClick(selectedBlog.id)}
+            >
               Remove
             </button>
           </div>
         ) : (
-          <p>Select a blog to view details</p>
+          <h3>Select a blog to view or Edit/Delete Your Blog</h3>
         )}
       </div>
     </div>

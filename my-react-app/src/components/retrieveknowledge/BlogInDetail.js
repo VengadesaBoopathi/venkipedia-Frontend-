@@ -8,7 +8,7 @@ function BlogDetails({ blog: propBlog }) {
   const blog = propBlog || location.state?.blog;
     const [expandedSections, setExpandedSections] = useState({});
   if (!blog) {
-    return <p>Select a blog to view details</p>;
+    return <h3>Select a blog to view details</h3>;
     }
     
   const toggleDropdown = (section) => {
